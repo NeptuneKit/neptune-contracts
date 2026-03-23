@@ -1,0 +1,24 @@
+{
+  "response": [
+    {
+      "platform": "ios",
+      "appId": "com.neptune.example",
+      "sessionId": "session-001",
+      "deviceId": "device-001",
+      "lastSeenAt": "2026-03-23T14:00:05.000Z",
+      "sdkName": "neptune-sdk-ios",
+      "sdkVersion": "0.1.0",
+      "status": "online"
+    },
+    {
+      "platform": "android",
+      "appId": "com.neptune.example",
+      "sessionId": "session-002",
+      "deviceId": "device-002",
+      "lastSeenAt": "2026-03-23T15:10:05.000Z",
+      "sdkName": "neptune-sdk-android",
+      "sdkVersion": "0.1.0",
+      "status": "online"
+    }
+  ]
+}

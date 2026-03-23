@@ -35,6 +35,8 @@ paths:
     get:
       summary: Query logs
       operationId: queryLogs
+      description: |
+        `waitMs` 仅在 `afterId` 存在时生效，用于长轮询等待新日志。
       parameters:
         - $ref: '#/components/parameters/limit'
         - $ref: '#/components/parameters/beforeId'
@@ -171,13 +173,15 @@ components:
     format:
       name: format
       in: query
+      description: Response format for `/v2/logs`.
       schema:
         type: string
-        enum: [json, ndjson, text]
+        enum: [json, ndjson]
         default: json
     waitMs:
       name: waitMs
       in: query
+      description: Long-poll wait window in milliseconds. Ignored unless `afterId` is provided.
       schema:
         type: integer
         minimum: 0
@@ -272,17 +276,13 @@ components:
           format: int32
     LogRecordPage:
       type: object
-      required: [items]
+      required: [records, hasMore]
       properties:
-        items:
+        records:
           type: array
           items:
             $ref: '#/components/schemas/LogRecord'
-        nextBeforeId:
-          type: integer
-          format: int64
-          nullable: true
-        nextAfterId:
+        nextCursor:
           type: integer
           format: int64
           nullable: true
@@ -290,10 +290,8 @@ components:
           type: boolean
     Source:
       type: object
-      required: [id, platform, appId, sessionId, deviceId, status]
+      required: [platform, appId, sessionId, deviceId, lastSeenAt]
       properties:
-        id:
-          type: string
         platform:
           type: string
           enum: [ios, android, harmony, web]
@@ -303,41 +301,31 @@ components:
           type: string
         deviceId:
           type: string
-        status:
-          type: string
-          enum: [online, offline, stale]
         lastSeenAt:
           type: string
           format: date-time
-          nullable: true
-        endpoint:
+        sdkName:
           type: string
           nullable: true
-        source:
-          $ref: '#/components/schemas/SourceOrigin'
+        sdkVersion:
+          type: string
+          nullable: true
+        status:
+          type: string
+          enum: [online, offline, stale]
           nullable: true
     MetricsSnapshot:
       type: object
-      required: [gateway, sources]
+      required: [ingestAcceptedTotal, sourceCount, totalRecords, droppedOverflow]
       properties:
-        gateway:
-          type: object
-          properties:
-            uptimeSeconds:
-              type: integer
-            logCount:
-              type: integer
-            errorCount:
-              type: integer
-        sources:
-          type: object
-          properties:
-            total:
-              type: integer
-            online:
-              type: integer
-            stale:
-              type: integer
+        ingestAcceptedTotal:
+          type: integer
+        sourceCount:
+          type: integer
+        totalRecords:
+          type: integer
+        droppedOverflow:
+          type: integer
     HealthSnapshot:
       type: object
       required: [ok, version]

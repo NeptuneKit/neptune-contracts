@@ -1,0 +1,8 @@
+{
+  "response": {
+    "ingestAcceptedTotal": 257,
+    "sourceCount": 2,
+    "totalRecords": 241,
+    "droppedOverflow": 3
+  }
+}

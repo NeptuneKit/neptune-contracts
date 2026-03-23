@@ -1,0 +1,13 @@
+{
+  "request": {
+    "afterId": 101,
+    "waitMs": 1500,
+    "limit": 50,
+    "format": "json"
+  },
+  "response": {
+    "records": [],
+    "nextCursor": 101,
+    "hasMore": false
+  }
+}
