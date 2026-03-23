@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/NeptuneKit/neptune-contracts/schemas/ingest-log-record.schema.json",
+  "title": "IngestLogRecord",
+  "type": "object",
+  "required": ["timestamp", "level", "message", "platform", "appId", "sessionId", "deviceId", "category"],
+  "properties": {
+    "timestamp": { "type": "string", "format": "date-time" },
+    "level": {
+      "type": "string",
+      "enum": ["trace", "debug", "info", "notice", "warning", "error", "critical"]
+    },
+    "message": { "type": "string" },
+    "platform": { "type": "string", "enum": ["ios", "android", "harmony", "web"] },
+    "appId": { "type": "string" },
+    "sessionId": { "type": "string" },
+    "deviceId": { "type": "string" },
+    "category": { "type": "string" },
+    "attributes": {
+      "type": "object",
+      "additionalProperties": { "type": "string" }
+    },
+    "source": {
+      "type": ["object", "null"],
+      "properties": {
+        "sdkName": { "type": "string" },
+        "sdkVersion": { "type": "string" },
+        "file": { "type": "string" },
+        "function": { "type": "string" },
+        "line": { "type": "integer" }
+      }
+    }
+  },
+  "additionalProperties": false
+}

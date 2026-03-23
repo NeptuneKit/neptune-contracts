@@ -1,0 +1,42 @@
+[
+  {
+    "timestamp": "2026-03-23T14:00:00.000Z",
+    "level": "debug",
+    "message": "queue flushed",
+    "platform": "android",
+    "appId": "com.neptune.example",
+    "sessionId": "session-002",
+    "deviceId": "device-002",
+    "category": "queue",
+    "attributes": {
+      "count": "50"
+    },
+    "source": {
+      "sdkName": "neptune-sdk-android",
+      "sdkVersion": "0.1.0",
+      "file": "Logger.kt",
+      "function": "flush()",
+      "line": 88
+    }
+  },
+  {
+    "timestamp": "2026-03-23T14:00:01.000Z",
+    "level": "warning",
+    "message": "gateway unavailable, retrying",
+    "platform": "android",
+    "appId": "com.neptune.example",
+    "sessionId": "session-002",
+    "deviceId": "device-002",
+    "category": "transport",
+    "attributes": {
+      "retry": "1"
+    },
+    "source": {
+      "sdkName": "neptune-sdk-android",
+      "sdkVersion": "0.1.0",
+      "file": "Transport.kt",
+      "function": "sendBatch()",
+      "line": 121
+    }
+  }
+]

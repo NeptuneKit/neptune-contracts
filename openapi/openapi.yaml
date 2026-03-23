@@ -1,0 +1,370 @@
+openapi: 3.1.0
+info:
+  title: Neptune v2 Contracts
+  version: 2.0.0-alpha.1
+  description: |
+    NeptuneKit v2 统一日志系统契约。
+    该文件定义中心网关与客户端导出协议的最小可用骨架。
+servers:
+  - url: http://127.0.0.1:18765
+paths:
+  /v2/logs:ingest:
+    post:
+      summary: Ingest structured logs
+      operationId: ingestLogs
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              oneOf:
+                - $ref: '#/components/schemas/IngestLogRecord'
+                - type: array
+                  items:
+                    $ref: '#/components/schemas/IngestLogRecord'
+          application/x-ndjson:
+            schema:
+              type: string
+              description: One JSON object per line.
+      responses:
+        '202':
+          description: Accepted
+        '400':
+          $ref: '#/components/responses/BadRequest'
+  /v2/logs:
+    get:
+      summary: Query logs
+      operationId: queryLogs
+      parameters:
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/beforeId'
+        - $ref: '#/components/parameters/afterId'
+        - $ref: '#/components/parameters/platform'
+        - $ref: '#/components/parameters/appId'
+        - $ref: '#/components/parameters/sessionId'
+        - $ref: '#/components/parameters/level'
+        - $ref: '#/components/parameters/contains'
+        - $ref: '#/components/parameters/since'
+        - $ref: '#/components/parameters/until'
+        - $ref: '#/components/parameters/format'
+        - $ref: '#/components/parameters/waitMs'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LogRecordPage'
+            application/x-ndjson:
+              schema:
+                type: string
+                description: One JSON object per line.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+  /v2/metrics:
+    get:
+      summary: Gateway and source metrics
+      operationId: getMetrics
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MetricsSnapshot'
+  /v2/sources:
+    get:
+      summary: Registered sources
+      operationId: listSources
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Source'
+  /v2/health:
+    get:
+      summary: Health check
+      operationId: getHealth
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthSnapshot'
+  /v2/gateway/discovery:
+    get:
+      summary: Discover gateway endpoint
+      operationId: discoverGateway
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GatewayDiscovery'
+components:
+  parameters:
+    limit:
+      name: limit
+      in: query
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 200
+    beforeId:
+      name: beforeId
+      in: query
+      schema:
+        type: integer
+        format: int64
+    afterId:
+      name: afterId
+      in: query
+      schema:
+        type: integer
+        format: int64
+    platform:
+      name: platform
+      in: query
+      schema:
+        type: string
+        enum: [ios, android, harmony, web]
+    appId:
+      name: appId
+      in: query
+      schema:
+        type: string
+    sessionId:
+      name: sessionId
+      in: query
+      schema:
+        type: string
+    level:
+      name: level
+      in: query
+      schema:
+        type: string
+        enum: [trace, debug, info, notice, warning, error, critical]
+    contains:
+      name: contains
+      in: query
+      schema:
+        type: string
+    since:
+      name: since
+      in: query
+      schema:
+        type: string
+        format: date-time
+    until:
+      name: until
+      in: query
+      schema:
+        type: string
+        format: date-time
+    format:
+      name: format
+      in: query
+      schema:
+        type: string
+        enum: [json, ndjson, text]
+        default: json
+    waitMs:
+      name: waitMs
+      in: query
+      schema:
+        type: integer
+        minimum: 0
+        maximum: 20000
+        default: 0
+  responses:
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  schemas:
+    LogRecord:
+      type: object
+      required: [id, timestamp, level, message, platform, appId, sessionId, deviceId, category]
+      properties:
+        id:
+          type: integer
+          format: int64
+        timestamp:
+          type: string
+          format: date-time
+        level:
+          type: string
+          enum: [trace, debug, info, notice, warning, error, critical]
+        message:
+          type: string
+        platform:
+          type: string
+          enum: [ios, android, harmony, web]
+        appId:
+          type: string
+        sessionId:
+          type: string
+        deviceId:
+          type: string
+        category:
+          type: string
+        attributes:
+          type: object
+          additionalProperties:
+            type: string
+          nullable: true
+        source:
+          $ref: '#/components/schemas/SourceOrigin'
+          nullable: true
+    IngestLogRecord:
+      type: object
+      required: [timestamp, level, message, platform, appId, sessionId, deviceId, category]
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+        level:
+          type: string
+          enum: [trace, debug, info, notice, warning, error, critical]
+        message:
+          type: string
+        platform:
+          type: string
+          enum: [ios, android, harmony, web]
+        appId:
+          type: string
+        sessionId:
+          type: string
+        deviceId:
+          type: string
+        category:
+          type: string
+        attributes:
+          type: object
+          additionalProperties:
+            type: string
+          nullable: true
+        source:
+          $ref: '#/components/schemas/SourceOrigin'
+          nullable: true
+    SourceOrigin:
+      type: object
+      properties:
+        sdkName:
+          type: string
+        sdkVersion:
+          type: string
+        file:
+          type: string
+        function:
+          type: string
+        line:
+          type: integer
+          format: int32
+    LogRecordPage:
+      type: object
+      required: [items]
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/LogRecord'
+        nextBeforeId:
+          type: integer
+          format: int64
+          nullable: true
+        nextAfterId:
+          type: integer
+          format: int64
+          nullable: true
+        hasMore:
+          type: boolean
+    Source:
+      type: object
+      required: [id, platform, appId, sessionId, deviceId, status]
+      properties:
+        id:
+          type: string
+        platform:
+          type: string
+          enum: [ios, android, harmony, web]
+        appId:
+          type: string
+        sessionId:
+          type: string
+        deviceId:
+          type: string
+        status:
+          type: string
+          enum: [online, offline, stale]
+        lastSeenAt:
+          type: string
+          format: date-time
+          nullable: true
+        endpoint:
+          type: string
+          nullable: true
+        source:
+          $ref: '#/components/schemas/SourceOrigin'
+          nullable: true
+    MetricsSnapshot:
+      type: object
+      required: [gateway, sources]
+      properties:
+        gateway:
+          type: object
+          properties:
+            uptimeSeconds:
+              type: integer
+            logCount:
+              type: integer
+            errorCount:
+              type: integer
+        sources:
+          type: object
+          properties:
+            total:
+              type: integer
+            online:
+              type: integer
+            stale:
+              type: integer
+    HealthSnapshot:
+      type: object
+      required: [ok, version]
+      properties:
+        ok:
+          type: boolean
+        version:
+          type: string
+        message:
+          type: string
+          nullable: true
+    GatewayDiscovery:
+      type: object
+      required: [host, port, version]
+      properties:
+        host:
+          type: string
+        port:
+          type: integer
+        version:
+          type: string
+    ErrorResponse:
+      type: object
+      required: [error]
+      properties:
+        error:
+          type: string
+        detail:
+          type: string
+          nullable: true

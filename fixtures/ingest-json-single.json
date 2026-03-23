@@ -1,0 +1,21 @@
+{
+  "timestamp": "2026-03-23T14:00:00.000Z",
+  "level": "info",
+  "message": "SDK boot completed",
+  "platform": "ios",
+  "appId": "com.neptune.example",
+  "sessionId": "session-001",
+  "deviceId": "device-001",
+  "category": "bootstrap",
+  "attributes": {
+    "buildMode": "debug",
+    "transport": "http"
+  },
+  "source": {
+    "sdkName": "neptune-sdk-ios",
+    "sdkVersion": "0.1.0",
+    "file": "Logger.swift",
+    "function": "start()",
+    "line": 42
+  }
+}
