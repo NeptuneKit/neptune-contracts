@@ -104,7 +104,7 @@ paths:
         `format=json` 返回 `LogRecordPage` 包装对象；`format=ndjson` 返回 `application/x-ndjson`，
         每行一个 `LogRecord`，记录顺序与 JSON 响应中的 `records` 保持一致。
 
-        `waitMs` 仅在 `afterId` 存在时生效，用于长轮询等待新日志。
+        当前长轮询策略为 `afterId + waitMs`。
         当 `afterId` 指向的游标之后暂时没有新记录时，网关最多等待 `waitMs` 毫秒；
         若超时仍无新记录，则返回空页，并保持 `nextCursor` 为请求中的 `afterId`。
       parameters:
