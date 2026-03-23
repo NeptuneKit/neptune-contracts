@@ -1,21 +1,20 @@
 {
   "timestamp": "2026-03-23T14:00:00.000Z",
-  "level": "info",
-  "message": "SDK boot completed",
-  "platform": "ios",
+  "level": "debug",
+  "message": "queue flushed",
+  "platform": "android",
   "appId": "com.neptune.example",
-  "sessionId": "session-001",
-  "deviceId": "device-001",
-  "category": "bootstrap",
+  "sessionId": "session-002",
+  "deviceId": "device-002",
+  "category": "queue",
   "attributes": {
-    "buildMode": "debug",
-    "transport": "http"
+    "count": "50"
   },
   "source": {
-    "sdkName": "neptune-sdk-ios",
+    "sdkName": "neptune-sdk-android",
     "sdkVersion": "0.1.0",
-    "file": "Logger.swift",
-    "function": "start()",
-    "line": 42
+    "file": "Logger.kt",
+    "function": "flush()",
+    "line": 88
   }
 }

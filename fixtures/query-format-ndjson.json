@@ -1,0 +1,11 @@
+{
+  "request": {
+    "afterId": 200,
+    "limit": 2,
+    "format": "ndjson"
+  },
+  "response": {
+    "contentType": "application/x-ndjson",
+    "body": "{\"id\":201,\"timestamp\":\"2026-03-23T15:10:00.000Z\",\"level\":\"warning\",\"message\":\"gateway unavailable, retrying\",\"platform\":\"android\",\"appId\":\"com.neptune.example\",\"sessionId\":\"session-002\",\"deviceId\":\"device-002\",\"category\":\"transport\",\"attributes\":{\"retry\":\"1\"},\"source\":{\"sdkName\":\"neptune-sdk-android\",\"sdkVersion\":\"0.1.0\",\"file\":\"Transport.kt\",\"function\":\"sendBatch()\",\"line\":121}}\n{\"id\":202,\"timestamp\":\"2026-03-23T15:10:01.000Z\",\"level\":\"info\",\"message\":\"queue drained\",\"platform\":\"android\",\"appId\":\"com.neptune.example\",\"sessionId\":\"session-002\",\"deviceId\":\"device-002\",\"category\":\"queue\",\"attributes\":{\"remaining\":\"0\"},\"source\":{\"sdkName\":\"neptune-sdk-android\",\"sdkVersion\":\"0.1.0\",\"file\":\"Logger.kt\",\"function\":\"flush()\",\"line\":90}}\n"
+  }
+}

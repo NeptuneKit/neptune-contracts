@@ -1,0 +1,55 @@
+{
+  "request": {
+    "afterId": 120,
+    "limit": 50,
+    "format": "json"
+  },
+  "response": {
+    "records": [
+      {
+        "id": 901,
+        "timestamp": "2026-03-23T16:20:00.000Z",
+        "level": "info",
+        "message": "retained log after overflow trim",
+        "platform": "ios",
+        "appId": "com.neptune.example",
+        "sessionId": "session-004",
+        "deviceId": "device-004",
+        "category": "retention",
+        "attributes": {
+          "window": "latest"
+        },
+        "source": {
+          "sdkName": "neptune-sdk-ios",
+          "sdkVersion": "0.1.0",
+          "file": "Retention.swift",
+          "function": "trimOverflow()",
+          "line": 61
+        }
+      },
+      {
+        "id": 902,
+        "timestamp": "2026-03-23T16:20:01.000Z",
+        "level": "warning",
+        "message": "retention window advanced",
+        "platform": "ios",
+        "appId": "com.neptune.example",
+        "sessionId": "session-004",
+        "deviceId": "device-004",
+        "category": "retention",
+        "attributes": {
+          "dropped": "true"
+        },
+        "source": {
+          "sdkName": "neptune-sdk-ios",
+          "sdkVersion": "0.1.0",
+          "file": "Retention.swift",
+          "function": "trimOverflow()",
+          "line": 72
+        }
+      }
+    ],
+    "nextCursor": 902,
+    "hasMore": false
+  }
+}
