@@ -7,4 +7,4 @@
 | neptune-sdk-android | AAR | ^2.0.0-alpha.1 | `3e90f5f` | Local serve + export contract |
 | neptune-sdk-harmony | ohpm | ^2.0.0-alpha.1 | `ae7c7c3` | Local serve reference implementation |
 | neptune-inspector-h5 | npm | ^2.0.0-alpha.1 | `d00f22e` | Query/read-only client |
-| neptune-sdk-web | npm | ^2.0.0-alpha.1 | in progress | Deferred |
+| neptune-sdk-web | npm | ^2.0.0-alpha.1 | `eebad71` | Web SDK queue/retry + gateway ingest |
