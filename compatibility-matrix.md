@@ -2,9 +2,9 @@
 
 | Package | Output | Contracts Version | Current Round Verified Commit | Notes |
 |---|---|---|---|---|
-| neptune-gateway-swift | CLI/macOS app | ^2.0.0-alpha.1 | `ed1f0bc` | Center gateway and query service |
-| neptune-sdk-ios | SPM | ^2.0.0-alpha.1 | `550ad17` | Local serve + export contract |
-| neptune-sdk-android | AAR | ^2.0.0-alpha.1 | `ae7af29` | Local serve + export contract |
+| neptune-gateway-swift | CLI/macOS app | ^2.0.0-alpha.1 | `cbc1379` | Center gateway and query service |
+| neptune-sdk-ios | SPM | ^2.0.0-alpha.1 | `3f4af13` | Local serve + export contract |
+| neptune-sdk-android | AAR | ^2.0.0-alpha.1 | `a64f662` | Local serve + export contract |
 | neptune-sdk-harmony | ohpm | ^2.0.0-alpha.1 | `551a558` | Local serve reference implementation |
-| neptune-inspector-h5 | npm | ^2.0.0-alpha.1 | `d00f22e` | Query/read-only client |
-| neptune-sdk-web | npm | ^2.0.0-alpha.1 | `59b55dd` | Web SDK queue/retry + gateway ingest |
+| neptune-inspector-h5 | npm | ^2.0.0-alpha.1 | `ec524b4` | Query/read-only client |
+| neptune-sdk-web | npm | ^2.0.0-alpha.1 | `3052c46` | Web SDK queue/retry + gateway ingest |
