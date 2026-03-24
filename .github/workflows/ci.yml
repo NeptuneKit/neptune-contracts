@@ -1,0 +1,39 @@
+name: ci
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  validate-contracts:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Parse OpenAPI YAML
+        run: ruby -e 'require "yaml"; YAML.load_file("openapi/openapi.yaml"); puts "openapi/openapi.yaml OK"'
+
+      - name: Parse JSON fixtures
+        run: |
+          set -euo pipefail
+          for file in fixtures/*.json; do
+            ruby -rjson -e 'JSON.parse(File.read(ARGV[0])); puts "#{ARGV[0]} OK"' "$file"
+          done
+
+      - name: Parse NDJSON fixtures
+        run: |
+          set -euo pipefail
+          for file in fixtures/*.ndjson; do
+            ruby -rjson -e 'File.foreach(ARGV[0], chomp: true).with_index(1) do |line, line_no|
+              next if line.strip.empty?
+              JSON.parse(line)
+            rescue JSON::ParserError => e
+              warn "#{ARGV[0]}:#{line_no}: #{e.message}"
+              exit 1
+            end
+            puts "#{ARGV[0]} OK"' "$file"
+          done
