@@ -1,5 +1,8 @@
 # Compatibility Matrix
 
+> v2 WS 总线契约已切换到 `BusEnvelope` / `BusAck` / `BusTarget`，方向限定为 `cli_to_client` 与 `client_to_cli`。
+> 旧兼容别名不再保证兼容。
+
 | Package | Output | Contracts Version | Current Round Verified Commit | Notes |
 |---|---|---|---|---|
 | neptune-gateway-swift | CLI/macOS app | ^2.0.0-alpha.1 | `cbc1379` | Center gateway and query service |

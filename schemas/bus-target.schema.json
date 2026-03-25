@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/NeptuneKit/neptune-contracts/schemas/bus-target.schema.json",
+  "title": "BusTarget",
+  "type": "object",
+  "description": "Optional fan-out selector for bus envelopes.",
+  "minProperties": 1,
+  "properties": {
+    "platforms": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["ios", "android", "harmony", "web"]
+      }
+    },
+    "appIds": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "sessionIds": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "deviceIds": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "additionalProperties": false
+}

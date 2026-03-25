@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/NeptuneKit/neptune-contracts/schemas/bus-envelope.schema.json",
+  "title": "BusEnvelope",
+  "type": "object",
+  "description": "CLI -> client bus envelope.",
+  "required": ["type", "direction", "topic", "payload"],
+  "properties": {
+    "type": {
+      "const": "bus.envelope"
+    },
+    "direction": {
+      "const": "cli_to_client"
+    },
+    "requestId": {
+      "type": "string"
+    },
+    "topic": {
+      "type": "string"
+    },
+    "target": {
+      "$ref": "./bus-target.schema.json"
+    },
+    "payload": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "meta": {
+      "type": "object",
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": false
+}

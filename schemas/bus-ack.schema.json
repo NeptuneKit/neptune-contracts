@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/NeptuneKit/neptune-contracts/schemas/bus-ack.schema.json",
+  "title": "BusAck",
+  "type": "object",
+  "description": "Client -> CLI bus acknowledgement.",
+  "required": ["type", "direction", "requestId", "accepted"],
+  "properties": {
+    "type": {
+      "const": "bus.ack"
+    },
+    "direction": {
+      "const": "client_to_cli"
+    },
+    "requestId": {
+      "type": "string"
+    },
+    "topic": {
+      "type": "string"
+    },
+    "accepted": {
+      "type": "boolean"
+    },
+    "delivered": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "message": {
+      "type": "string"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "meta": {
+      "type": "object",
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": false
+}

@@ -10,8 +10,11 @@ NeptuneKit v2 统一日志契约仓库。
 
 ## Transport
 - HTTP 用于查询与聚合接口：`/v2/logs:ingest`、`/v2/logs`、`/v2/metrics`、`/v2/sources`、`/v2/health`、`/v2/gateway/discovery`
-- WS 用于实时与下发主通道：`GET /v2/ws`
-- 约定的消息族包括：`hello`、`heartbeat`、`command.send`、`dispatch`、`ack`、`event.command_ack`、`event.command_summary`、`error`
+- WS 用于实时总线主通道：`GET /v2/ws`
+- 总线消息对象包括：`BusEnvelope`、`BusAck`、`BusTarget`
+- `BusEnvelope.direction` 仅允许 `cli_to_client`
+- `BusAck.direction` 仅允许 `client_to_cli`
+- 旧兼容别名不再保留
 
 ## Scope
 - 仅承载 contracts，不放业务实现。
