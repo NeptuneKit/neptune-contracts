@@ -8,6 +8,11 @@ NeptuneKit v2 统一日志契约仓库。
 - `fixtures/`: 跨仓测试样例
 - `compatibility-matrix.md`: 版本兼容矩阵
 
+## Transport
+- HTTP 用于查询与聚合接口：`/v2/logs:ingest`、`/v2/logs`、`/v2/metrics`、`/v2/sources`、`/v2/health`、`/v2/gateway/discovery`
+- WS 用于实时与下发主通道：`GET /v2/ws`
+- 约定的消息族包括：`hello`、`heartbeat`、`command.send`、`dispatch`、`ack`、`event.command_ack`、`event.command_summary`、`error`
+
 ## Scope
 - 仅承载 contracts，不放业务实现。
 - 供 gateway、SDK、Inspector、macOS App 共同引用。
