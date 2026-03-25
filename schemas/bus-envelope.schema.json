@@ -4,18 +4,20 @@
   "title": "BusEnvelope",
   "type": "object",
   "description": "CLI -> client bus envelope.",
-  "required": ["type", "direction", "topic", "payload"],
+  "required": ["requestId", "direction", "kind", "command", "timestamp"],
   "properties": {
-    "type": {
-      "const": "bus.envelope"
-    },
-    "direction": {
-      "const": "cli_to_client"
-    },
     "requestId": {
       "type": "string"
     },
-    "topic": {
+    "direction": {
+      "type": "string",
+      "enum": ["cli_to_client"]
+    },
+    "kind": {
+      "type": "string",
+      "enum": ["command"]
+    },
+    "command": {
       "type": "string"
     },
     "target": {
@@ -28,10 +30,6 @@
     "timestamp": {
       "type": "string",
       "format": "date-time"
-    },
-    "meta": {
-      "type": "object",
-      "additionalProperties": true
     }
   },
   "additionalProperties": false

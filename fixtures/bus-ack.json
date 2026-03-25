@@ -1,8 +1,8 @@
 {
-  "type": "bus.ack",
-  "direction": "client_to_cli",
   "requestId": "bus-req-001",
-  "accepted": true,
-  "topic": "ping",
+  "direction": "client_to_cli",
+  "kind": "command",
+  "command": "ping",
+  "status": "ok",
   "timestamp": "2026-03-25T08:00:01.000Z"
 }

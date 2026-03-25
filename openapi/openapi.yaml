@@ -554,15 +554,17 @@ components:
     BusEnvelope:
       type: object
       description: CLI -> client bus envelope.
-      required: [type, direction, topic, payload]
+      required: [requestId, direction, kind, command, timestamp]
       properties:
-        type:
-          const: bus.envelope
-        direction:
-          const: cli_to_client
         requestId:
           type: string
-        topic:
+        direction:
+          type: string
+          enum: [cli_to_client]
+        kind:
+          type: string
+          enum: [command]
+        command:
           type: string
         target:
           $ref: '#/components/schemas/BusTarget'
@@ -572,40 +574,34 @@ components:
         timestamp:
           type: string
           format: date-time
-        meta:
-          type: object
-          additionalProperties: true
       additionalProperties: false
     BusAck:
       type: object
       description: Client -> CLI bus acknowledgement.
-      required: [type, direction, requestId, accepted]
+      required: [status, timestamp]
       properties:
-        type:
-          const: bus.ack
-        direction:
-          const: client_to_cli
         requestId:
           type: string
-        topic:
+        direction:
           type: string
-        accepted:
-          type: boolean
-        delivered:
-          type: integer
-          minimum: 0
+          enum: [client_to_cli]
+        kind:
+          type: string
+          enum: [command, event, log]
+        command:
+          type: string
+        status:
+          type: string
+          enum: [ok, error]
         message:
           type: string
         timestamp:
           type: string
           format: date-time
-        meta:
-          type: object
-          additionalProperties: true
       additionalProperties: false
     ClientRegisterRequest:
       type: object
-      required: [platform, appId, sessionId, deviceId, callbackEndpoint]
+      required: [platform, appId, deviceId, callbackEndpoint]
       properties:
         platform:
           type: string
@@ -619,6 +615,12 @@ components:
         callbackEndpoint:
           type: string
           format: uri
+        preferredTransports:
+          type: array
+          items:
+            $ref: '#/components/schemas/ClientTransport'
+        usbmuxdHint:
+          $ref: '#/components/schemas/USBMuxdHint'
         expiresAt:
           type: string
           format: date-time
@@ -650,6 +652,14 @@ components:
         callbackEndpoint:
           type: string
           format: uri
+        preferredTransports:
+          type: array
+          items:
+            $ref: '#/components/schemas/ClientTransport'
+        usbmuxdHint:
+          allOf:
+            - $ref: '#/components/schemas/USBMuxdHint'
+          nullable: true
         lastSeenAt:
           type: string
           format: date-time
@@ -661,6 +671,19 @@ components:
           minimum: 0
         selected:
           type: boolean
+    ClientTransport:
+      type: string
+      enum: [httpCallback, webSocket, usbmuxdHTTP]
+    USBMuxdHint:
+      type: object
+      required: [deviceID]
+      properties:
+        deviceID:
+          type: integer
+          minimum: 1
+        socketPath:
+          type: string
+          nullable: true
     ClientRegisterResponse:
       type: object
       required: [client]

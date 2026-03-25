@@ -1,13 +1,14 @@
 {
-  "type": "bus.envelope",
-  "direction": "cli_to_client",
   "requestId": "bus-req-001",
-  "topic": "ping",
+  "direction": "cli_to_client",
+  "kind": "command",
+  "command": "ping",
   "target": {
     "platforms": ["ios"],
     "appIds": ["com.neptune.example"]
   },
   "payload": {
     "message": "ping"
-  }
+  },
+  "timestamp": "2026-03-25T08:00:00.000Z"
 }
